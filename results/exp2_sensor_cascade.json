@@ -1,0 +1,143 @@
+{
+ "config": {
+  "n": 735,
+  "n_repeats": 5,
+  "split": "block",
+  "sensors": {
+   "field spectroradiometer": {
+    "kind": "grid",
+    "lo": 400,
+    "hi": 2400,
+    "step": 4,
+    "fwhm": 6,
+    "snr": 1000,
+    "note": "contact probe on a leaf, full solar-reflective range"
+   },
+   "drone hyperspectral (VNIR)": {
+    "kind": "grid",
+    "lo": 400,
+    "hi": 1000,
+    "step": 5,
+    "fwhm": 8,
+    "snr": 200,
+    "note": "silicon sensor; stops before the strong water bands"
+   },
+   "drone hyperspectral + SWIR": {
+    "kind": "grid",
+    "lo": 400,
+    "hi": 1700,
+    "step": 8,
+    "fwhm": 12,
+    "snr": 120,
+    "note": "a second, much more expensive sensor extends the range"
+   },
+   "multispectral 5-band": {
+    "kind": "bands",
+    "snr": 150,
+    "note": "MicaSense RedEdge-P class: blue, green, red, red edge, NIR"
+   },
+   "multispectral + 1610 nm": {
+    "kind": "bands",
+    "snr": 150,
+    "note": "the same camera with one shortwave-infrared band added"
+   },
+   "multispectral + PRI pair": {
+    "kind": "bands",
+    "snr": 150,
+    "note": "two narrow bands at 531 and 570 nm added instead"
+   },
+   "multispectral + PRI + SWIR": {
+    "kind": "bands",
+    "snr": 150,
+    "note": "both additions: eight bands in total"
+   },
+   "RGB": {
+    "kind": "bands",
+    "snr": 150,
+    "note": "an ordinary colour camera"
+   }
+  }
+ },
+ "cells": {
+  "field spectroradiometer|water stress": {
+   "auc": 0.8808998100664768,
+   "auc_sd": 0.002428448436829821,
+   "n_bands": 501
+  },
+  "field spectroradiometer|heat": {
+   "auc": 0.9820832468649018,
+   "auc_sd": 0.0003467035338302033,
+   "n_bands": 501
+  },
+  "drone hyperspectral (VNIR)|water stress": {
+   "auc": 0.8313538698955366,
+   "auc_sd": 0.01290508107594304,
+   "n_bands": 121
+  },
+  "drone hyperspectral (VNIR)|heat": {
+   "auc": 0.9062242447600131,
+   "auc_sd": 0.00823002277813509,
+   "n_bands": 121
+  },
+  "drone hyperspectral + SWIR|water stress": {
+   "auc": 0.8388770180436846,
+   "auc_sd": 0.010991538311219188,
+   "n_bands": 163
+  },
+  "drone hyperspectral + SWIR|heat": {
+   "auc": 0.9576546796715188,
+   "auc_sd": 0.000369022255692504,
+   "n_bands": 163
+  },
+  "multispectral 5-band|water stress": {
+   "auc": 0.8169115028490029,
+   "auc_sd": 0.006157506788030697,
+   "n_bands": 5
+  },
+  "multispectral 5-band|heat": {
+   "auc": 0.6944175980552015,
+   "auc_sd": 0.009711014518655178,
+   "n_bands": 5
+  },
+  "multispectral + 1610 nm|water stress": {
+   "auc": 0.8394349477682811,
+   "auc_sd": 0.003495614345117148,
+   "n_bands": 6
+  },
+  "multispectral + 1610 nm|heat": {
+   "auc": 0.6836396786338976,
+   "auc_sd": 0.0033849606143550822,
+   "n_bands": 6
+  },
+  "multispectral + PRI pair|water stress": {
+   "auc": 0.8280982905982907,
+   "auc_sd": 0.005372294413303521,
+   "n_bands": 7
+  },
+  "multispectral + PRI pair|heat": {
+   "auc": 0.8030624647949958,
+   "auc_sd": 0.00311407950545766,
+   "n_bands": 7
+  },
+  "multispectral + PRI + SWIR|water stress": {
+   "auc": 0.8454297245963913,
+   "auc_sd": 0.0027542319557460762,
+   "n_bands": 8
+  },
+  "multispectral + PRI + SWIR|heat": {
+   "auc": 0.7889537813880406,
+   "auc_sd": 0.012785342940327899,
+   "n_bands": 8
+  },
+  "RGB|water stress": {
+   "auc": 0.8017420465337132,
+   "auc_sd": 0.0029355488027156674,
+   "n_bands": 3
+  },
+  "RGB|heat": {
+   "auc": 0.7245960688980463,
+   "auc_sd": 0.0029355754940693763,
+   "n_bands": 3
+  }
+ }
+}

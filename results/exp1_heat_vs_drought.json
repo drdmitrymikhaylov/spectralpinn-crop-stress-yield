@@ -1,0 +1,268 @@
+{
+ "config": {
+  "n": 735,
+  "n_dropped_qc": 0,
+  "populations": {
+   "ced": 188,
+   "kmp": 185,
+   "tru": 181,
+   "bfs": 109,
+   "mwh": 72
+  },
+  "n_permutations": 2000
+ },
+ "effects": {
+  "NDVI": {
+   "d_water": 0.37796743726061394,
+   "d_heat": -0.20717851888303154,
+   "p_water": 0.0004997501249375312,
+   "p_heat": 0.0074962518740629685,
+   "group": "greenness"
+  },
+  "NDRE": {
+   "d_water": 1.4883511161191745,
+   "d_heat": 0.7843689944928931,
+   "p_water": 0.0004997501249375312,
+   "p_heat": 0.0004997501249375312,
+   "group": "greenness"
+  },
+  "MTCI": {
+   "d_water": 1.446242798474297,
+   "d_heat": 0.8798184137801107,
+   "p_water": 0.0004997501249375312,
+   "p_heat": 0.0004997501249375312,
+   "group": "greenness"
+  },
+  "REP": {
+   "d_water": 1.324958716966512,
+   "d_heat": 0.7921945526586855,
+   "p_water": 0.0004997501249375312,
+   "p_heat": 0.0004997501249375312,
+   "group": "greenness"
+  },
+  "PRI": {
+   "d_water": 0.364984876127149,
+   "d_heat": 1.1501171513779311,
+   "p_water": 0.0004997501249375312,
+   "p_heat": 0.0004997501249375312,
+   "group": "photoprotection"
+  },
+  "CRI700": {
+   "d_water": -0.3322840243070669,
+   "d_heat": -0.8786767986091119,
+   "p_water": 0.0004997501249375312,
+   "p_heat": 0.0004997501249375312,
+   "group": "photoprotection"
+  },
+  "ARI": {
+   "d_water": -0.7948641053819903,
+   "d_heat": -0.6558136409980393,
+   "p_water": 0.0004997501249375312,
+   "p_heat": 0.0004997501249375312,
+   "group": "photoprotection"
+  },
+  "SIPI": {
+   "d_water": -0.26212032711084965,
+   "d_heat": -0.34585376590351546,
+   "p_water": 0.0004997501249375312,
+   "p_heat": 0.0004997501249375312,
+   "group": "photoprotection"
+  },
+  "NDWI": {
+   "d_water": -0.9150975419655618,
+   "d_heat": -0.02428692923979278,
+   "p_water": 0.0004997501249375312,
+   "p_heat": 0.7316341829085458,
+   "group": "water"
+  },
+  "NDII": {
+   "d_water": -0.9259771920419753,
+   "d_heat": -0.4059315277342827,
+   "p_water": 0.0004997501249375312,
+   "p_heat": 0.0004997501249375312,
+   "group": "water"
+  },
+  "MSI": {
+   "d_water": 0.9453362431158667,
+   "d_heat": 0.4556200769924545,
+   "p_water": 0.0004997501249375312,
+   "p_heat": 0.0004997501249375312,
+   "group": "water"
+  },
+  "WBI": {
+   "d_water": -1.0536929059886848,
+   "d_heat": 0.3014660714539798,
+   "p_water": 0.0004997501249375312,
+   "p_heat": 0.0009995002498750624,
+   "group": "water"
+  },
+  "WATER1450": {
+   "d_water": -0.6008802383391392,
+   "d_heat": -0.02274621624436199,
+   "p_water": 0.0004997501249375312,
+   "p_heat": 0.7471264367816092,
+   "group": "water"
+  },
+  "WATER1940": {
+   "d_water": 0.6860411628303231,
+   "d_heat": 0.289636011103967,
+   "p_water": 0.0004997501249375312,
+   "p_heat": 0.0004997501249375312,
+   "group": "water"
+  },
+  "NDNI": {
+   "d_water": -0.6323978970180072,
+   "d_heat": -0.26093297021299344,
+   "p_water": 0.0004997501249375312,
+   "p_heat": 0.0004997501249375312,
+   "group": "dry matter"
+  },
+  "CAI": {
+   "d_water": -0.800041853616276,
+   "d_heat": -0.9002976333789167,
+   "p_water": 0.0004997501249375312,
+   "p_heat": 0.0004997501249375312,
+   "group": "dry matter"
+  }
+ },
+ "classification": {
+  "photoprotection|water stress|population": {
+   "auc": 0.7288253798670465,
+   "accuracy": 0.689795918367347,
+   "n": 735
+  },
+  "photoprotection|water stress|block": {
+   "auc": 0.7203451448243114,
+   "accuracy": 0.6775510204081633,
+   "n": 735
+  },
+  "photoprotection|heat|population": {
+   "auc": 0.83110491832439,
+   "accuracy": 0.7482993197278912,
+   "n": 735
+  },
+  "photoprotection|heat|block": {
+   "auc": 0.8014067178559782,
+   "accuracy": 0.7319727891156462,
+   "n": 735
+  },
+  "water|water stress|population": {
+   "auc": 0.7399023622981956,
+   "accuracy": 0.6653061224489796,
+   "n": 735
+  },
+  "water|water stress|block": {
+   "auc": 0.6771426875593543,
+   "accuracy": 0.6571428571428571,
+   "n": 735
+  },
+  "water|heat|population": {
+   "auc": 0.8830675046692953,
+   "accuracy": 0.8040816326530612,
+   "n": 735
+  },
+  "water|heat|block": {
+   "auc": 0.874877708932436,
+   "accuracy": 0.7904761904761904,
+   "n": 735
+  },
+  "greenness|water stress|population": {
+   "auc": 0.8444919278252612,
+   "accuracy": 0.7918367346938775,
+   "n": 735
+  },
+  "greenness|water stress|block": {
+   "auc": 0.8191105769230769,
+   "accuracy": 0.7605442176870748,
+   "n": 735
+  },
+  "greenness|heat|population": {
+   "auc": 0.7327013726245887,
+   "accuracy": 0.6993197278911565,
+   "n": 735
+  },
+  "greenness|heat|block": {
+   "auc": 0.7149802851975927,
+   "accuracy": 0.6653061224489796,
+   "n": 735
+  },
+  "all indices|water stress|population": {
+   "auc": 0.9063241927825261,
+   "accuracy": 0.8326530612244898,
+   "n": 735
+  },
+  "all indices|water stress|block": {
+   "auc": 0.8792364078822412,
+   "accuracy": 0.8068027210884354,
+   "n": 735
+  },
+  "all indices|heat|population": {
+   "auc": 0.9461993418517091,
+   "accuracy": 0.891156462585034,
+   "n": 735
+  },
+  "all indices|heat|block": {
+   "auc": 0.9223859357860722,
+   "accuracy": 0.8299319727891157,
+   "n": 735
+  },
+  "full spectrum|water stress|population": {
+   "auc": 0.9333229463437797,
+   "accuracy": 0.8775510204081632,
+   "n": 735
+  },
+  "full spectrum|water stress|block": {
+   "auc": 0.8793106006647673,
+   "accuracy": 0.7959183673469388,
+   "n": 735
+  },
+  "full spectrum|heat|population": {
+   "auc": 0.9985176840295278,
+   "accuracy": 0.9836734693877551,
+   "n": 735
+  },
+  "full spectrum|heat|block": {
+   "auc": 0.9822196199341852,
+   "accuracy": 0.927891156462585,
+   "n": 735
+  }
+ },
+ "four_class": {
+  "split": "block",
+  "labels": [
+   "ww 23C",
+   "ww 30C",
+   "ws 23C",
+   "ws 30C"
+  ],
+  "confusion": [
+   [
+    131,
+    28,
+    25,
+    2
+   ],
+   [
+    19,
+    87,
+    2,
+    90
+   ],
+   [
+    18,
+    3,
+    146,
+    3
+   ],
+   [
+    6,
+    53,
+    6,
+    116
+   ]
+  ],
+  "accuracy": 0.6530612244897959,
+  "water_correct": 0.7292517006802721,
+  "heat_correct": 0.9061224489795918
+ }
+}

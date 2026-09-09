@@ -1,0 +1,269 @@
+{
+ "config": {
+  "n": 2406,
+  "n_dropped_qc": 56,
+  "species": {
+   "Carolina poplar": 411,
+   "cayenne pepper": 498,
+   "common sunflower": 172,
+   "cultivated radish": 214,
+   "field pumpkin": 864,
+   "foxtail millet": 96,
+   "sorghum": 151
+  },
+  "venues": {
+   "field": 397,
+   "glasshouse": 2009
+  },
+  "day_bins": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    7
+   ],
+   [
+    8,
+    14
+   ],
+   [
+    15,
+    21
+   ],
+   [
+    22,
+    40
+   ]
+  ]
+ },
+ "by_species": {
+  "full spectrum|Carolina poplar": {
+   "auc": 0.6477929335985602,
+   "n": 411
+  },
+  "full spectrum|cayenne pepper": {
+   "auc": 0.4920243221883518,
+   "n": 498
+  },
+  "full spectrum|common sunflower": {
+   "auc": 0.5280594996619338,
+   "n": 172
+  },
+  "full spectrum|cultivated radish": {
+   "auc": 0.6025349650349651,
+   "n": 214
+  },
+  "full spectrum|field pumpkin": {
+   "auc": 0.6029087396356025,
+   "n": 864
+  },
+  "full spectrum|foxtail millet": {
+   "auc": 0.4769965277777778,
+   "n": 96
+  },
+  "full spectrum|sorghum": {
+   "auc": 0.48838028169014086,
+   "n": 151
+  },
+  "full spectrum|ALL": {
+   "auc": 0.5673788721811268,
+   "n": 2406
+  },
+  "indices|Carolina poplar": {
+   "auc": 0.6749786871270247,
+   "n": 411
+  },
+  "indices|cayenne pepper": {
+   "auc": 0.5978129385009919,
+   "n": 498
+  },
+  "indices|common sunflower": {
+   "auc": 0.5052062204192022,
+   "n": 172
+  },
+  "indices|cultivated radish": {
+   "auc": 0.6506993006993007,
+   "n": 214
+  },
+  "indices|field pumpkin": {
+   "auc": 0.5388252341213406,
+   "n": 864
+  },
+  "indices|foxtail millet": {
+   "auc": 0.3020833333333333,
+   "n": 96
+  },
+  "indices|sorghum": {
+   "auc": 0.6051056338028169,
+   "n": 151
+  },
+  "indices|ALL": {
+   "auc": 0.5384060781137994,
+   "n": 2406
+  },
+  "within|Carolina poplar": {
+   "auc": 0.6895424836601307,
+   "n": 411
+  },
+  "within|cayenne pepper": {
+   "auc": 0.6832470444025096,
+   "n": 498
+  },
+  "within|common sunflower": {
+   "auc": 0.47762001352265043,
+   "n": 172
+  },
+  "within|cultivated radish": {
+   "auc": 0.469493006993007,
+   "n": 214
+  },
+  "within|field pumpkin": {
+   "auc": 0.6611049990608313,
+   "n": 864
+  },
+  "within|foxtail millet": {
+   "auc": 0.6818576388888888,
+   "n": 96
+  },
+  "within|sorghum": {
+   "auc": 0.6302816901408451,
+   "n": 151
+  }
+ },
+ "by_day": {
+  "full spectrum|0-0": {
+   "auc": 0.5543154761904762,
+   "n": 254,
+   "n_droughted": 126
+  },
+  "full spectrum|1-7": {
+   "auc": 0.5947949399726049,
+   "n": 386,
+   "n_droughted": 189
+  },
+  "full spectrum|8-14": {
+   "auc": 0.6054353440854043,
+   "n": 528,
+   "n_droughted": 262
+  },
+  "full spectrum|15-21": {
+   "auc": 0.5535464820929642,
+   "n": 502,
+   "n_droughted": 248
+  },
+  "full spectrum|22-40": {
+   "auc": 0.5534814887493459,
+   "n": 700,
+   "n_droughted": 336
+  },
+  "indices|0-0": {
+   "auc": 0.5356522817460317,
+   "n": 254,
+   "n_droughted": 126
+  },
+  "indices|1-7": {
+   "auc": 0.5382590712539951,
+   "n": 386,
+   "n_droughted": 189
+  },
+  "indices|8-14": {
+   "auc": 0.5350829363485049,
+   "n": 528,
+   "n_droughted": 262
+  },
+  "indices|15-21": {
+   "auc": 0.5303530607061214,
+   "n": 502,
+   "n_droughted": 248
+  },
+  "indices|22-40": {
+   "auc": 0.5674303375196232,
+   "n": 700,
+   "n_droughted": 336
+  }
+ },
+ "physiology": {
+  "full spectrum": {
+   "n_with_rwc": 704,
+   "r_score_vs_rwc": -0.0304478329350895,
+   "r_label_vs_rwc": -0.04719349474922795,
+   "rwc_droughted_mean": 79.10081379764534,
+   "rwc_watered_mean": 79.88665729952777
+  },
+  "indices": {
+   "n_with_rwc": 704,
+   "r_score_vs_rwc": 0.25262412759887126,
+   "r_label_vs_rwc": -0.04719349474922795,
+   "rwc_droughted_mean": 79.10081379764534,
+   "rwc_watered_mean": 79.88665729952777
+  },
+  "treatment effect on RWC": {
+   "n": 704,
+   "droughted_mean": 79.10081379764534,
+   "watered_mean": 79.88665729952777,
+   "ratio": 0.9901630193520806,
+   "cohen_d": -0.09438233728517798
+  },
+  "treatment effect on stomatal conductance": {
+   "n": 294,
+   "droughted_mean": 0.18751724137931033,
+   "watered_mean": 0.2935570469798658,
+   "ratio": 0.6387761537612537,
+   "cohen_d": -0.610664325900391
+  },
+  "treatment effect on ABA": {
+   "n": 634,
+   "droughted_mean": 1614.0874813845428,
+   "watered_mean": 339.2973881870721,
+   "ratio": 4.757146790928474,
+   "cohen_d": 0.36230303973819594
+  },
+  "treatment effect on proline": {
+   "n": 697,
+   "droughted_mean": 2.715954581087977,
+   "watered_mean": 1.8655109299438204,
+   "ratio": 1.4558770669704773,
+   "cohen_d": 0.2483120548381121
+  }
+ },
+ "targets": {
+  "full spectrum|RWC": {
+   "auc": 0.5639007933625497,
+   "n": 704
+  },
+  "indices|RWC": {
+   "auc": 0.6072007941696327,
+   "n": 704
+  },
+  "treatment label alone|RWC": {
+   "auc": 0.5266135606078949,
+   "n": 704
+  },
+  "full spectrum|stomatal conductance": {
+   "auc": 0.576129211403184,
+   "n": 294
+  },
+  "indices|stomatal conductance": {
+   "auc": 0.5344316919659385,
+   "n": 294
+  },
+  "treatment label alone|stomatal conductance": {
+   "auc": 0.7084413180303591,
+   "n": 294
+  },
+  "full spectrum|ABA": {
+   "auc": 0.5681573919273943,
+   "n": 634
+  },
+  "indices|ABA": {
+   "auc": 0.5729042273704323,
+   "n": 634
+  },
+  "treatment label alone|ABA": {
+   "auc": 0.6422458402993392,
+   "n": 634
+  }
+ }
+}

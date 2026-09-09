@@ -1,0 +1,312 @@
+# Which crop stress a spectrum can actually see
+
+A framework for training and validating hyperspectral stress detectors —
+built around the two steps that decide whether one works in the field: telling
+heat from drought, and getting from a hand-held spectrometer to a camera on a
+drone.
+
+Almost every hyperspectral crop-stress paper reports the same thing: an
+accuracy, on one experiment, under a random split. That number tells you
+nothing about the three questions a deployment actually turns on.
+
+1. **Which stress is it?** "Stress detected" is not actionable. Irrigating a
+   heat-stressed crop and shading a thirsty one are both wrong.
+2. **Will it survive the instrument?** The calibration is built with a contact
+   probe over 400–2400 nm. The drone carries a silicon camera that stops at
+   1000 nm, or five broad filters.
+3. **Is the label real?** "Droughted" describes the watering can. It does not
+   promise the plant is short of water — and this repository contains a
+   dataset where it wasn't.
+
+Four experiments on three published datasets, each answering one of those.
+
+---
+
+## The data
+
+All three are open leaf- and canopy-level spectra with treatment labels and
+measured plant traits, from [EcoSIS](https://ecosis.org). Reflectance was
+resampled once to 4 nm over 400–2400 nm.
+
+| dataset | n | design | what it answers |
+|---|---|---|---|
+| Common milkweed under water stress and elevated temperature (J. Couture, 2015) | 735 | 2×2 factorial: well-watered / water-stressed × 23 °C / 30 °C, 5 populations, 4 growth rooms, 2 blocks | can the two stresses be told apart |
+| Cucurbita pepo under two stresses, leaf **and** canopy (A. C. Burnett, S. P. Serbin, A. Rogers, 2020) | 627 | drought / control / sink manipulation, 19 field plots, both measurement scales on the same plots | the hand-held-to-drone step |
+| Droughted and watered crops (A. C. Burnett, S. P. Serbin, K. J. Davidson, K. S. Ely, A. Rogers, 2020) | 2 406 | 7 species, droughted / watered, days 0–28, with leaf water content, stomatal conductance, ABA and proline | transfer across crops, and whether the label is real |
+
+**Quality control first.** All three contain spectra that a leaf cannot
+produce — reflectance above 1, up to 6.1 in the canopy measurements, and
+detector-splice steps. 112 of 715 Cucurbita and 56 of 2 462 crop spectra fail
+a four-part physical check and are dropped before anything is fitted. Left in,
+they dominate any model that uses absolute amplitude.
+
+---
+
+## What came out
+
+| # | Finding | Evidence |
+|---|---------|----------|
+| 1 | Heat and drought move **different** parts of the spectrum. NDWI and the 1450 nm water band respond to water with no detectable temperature effect (d = −0.02, p = 0.73). PRI responds to temperature three times more strongly than to water (d = 1.15 vs 0.36). | §1 |
+| 2 | But mechanism does not equal prediction: a classifier built only on water indices predicts *heat* better (AUC 0.88) than it predicts water (0.68). Selectivity of a marker and sufficiency for a decision are different properties. | §1 |
+| 3 | **Drought needs range; heat needs resolution.** Cutting to a silicon drone camera costs heat 0.08 AUC and drought 0.05. A five-band multispectral camera costs heat 0.29. Adding one 1610 nm band buys back drought (+0.02) and nothing else; adding the narrow 531/570 pair buys back heat (+0.11) and nothing else. | §2 |
+| 4 | Going from a leaf probe to a canopy view destroys a full-spectrum model (AUC 0.52, chance) but not an index model (0.82). Physically-defined indices cross the scale change; a fitted spectral model does not. | §3 |
+| 5 | Standardising the two measurement modes to their own means makes the full-spectrum transfer **worse**, not better (0.52 → 0.37). The obvious domain correction is the wrong one. | §3 |
+| 6 | Across seven crops, leave-one-species-out drought detection is 0.567 — barely above chance — and does not improve from day 0 to day 28. | §4 |
+| 7 | The reason is in the plants, not the model: the drought treatment cut stomatal conductance by 36% and raised ABA five-fold while leaving leaf water content **unchanged** (79.1% vs 79.9%). Reflectance measures water content. The stress was real, expensive and spectrally invisible. | §4 |
+
+---
+
+## 1. Two stresses, or one axis of severity?
+
+![two stresses](figures/01_two_stresses.png)
+
+The milkweed experiment crosses watering with temperature, so each effect can
+be estimated inside the levels of the other. The right panel puts every index
+on those two axes; anything off the diagonal is selective.
+
+The mechanistic prediction holds cleanly:
+
+| index | reports | d, water | d, heat |
+|---|---|---|---|
+| WBI | water | −1.05 | +0.30 |
+| NDWI | water | −0.92 | −0.02 (p = 0.73) |
+| WATER1450 | water | −0.60 | −0.02 (p = 0.75) |
+| PRI | photoprotection | +0.36 | **+1.15** |
+| CRI700 | pigments | −0.33 | −0.88 |
+| NDRE, MTCI, REP | greenness | +1.3 to +1.5 | +0.8 to +0.9 |
+
+Water-band depth moves with water and, to within the resolution of 735
+samples, not with temperature. PRI — the xanthophyll-cycle index at 531 nm
+against 570 nm — moves three times more with temperature than with water.
+Greenness indices move with both, which is why "stress detected" is all a
+greenness-based system can say.
+
+![split matters](figures/02_split_matters.png)
+
+**And here the tidy story breaks.** Building a classifier from just the water
+group does not make it a water detector: it predicts heat at AUC 0.88 and
+water at 0.68. The photoprotection group behaves the same way. Heat is simply
+the easier target in this experiment, whatever you feed the model.
+A selective marker is not automatically a sufficient feature set — an
+important thing to know before designing a camera around one index.
+
+**The split matters more than the features.** Temperature was applied per
+growth room, and rooms are nested inside temperature, so a model can score on
+the room instead of the plant. Splitting by source population leaves that
+confound intact and gives AUC 0.999 for heat. Splitting by block puts the test
+on a *different pair of rooms* at the same two temperatures and gives 0.982 —
+the signal survives, which is the evidence that it is heat and not furniture.
+Water stress, applied inside every room, carries no such confound: 0.933 →
+0.879 across the two splits.
+
+Four-class accuracy (watering × temperature), split by block: **0.653** against
+0.25 for chance; the water axis is right 73% of the time and the temperature
+axis 91%.
+
+---
+
+## 2. What survives the instrument
+
+![sensor cascade](figures/03_sensor_cascade.png)
+
+The same two questions asked of eight instruments, everything else held fixed.
+Each instrument is modelled by its band centres, band widths and noise; a flat
+spectrum passes through all of them unchanged, which is what makes the
+comparison about the instrument rather than about the weighting.
+
+| instrument | bands | water stress | heat |
+|---|---|---|---|
+| field spectroradiometer, 400–2400 nm | 501 | 0.881 | 0.982 |
+| drone hyperspectral, VNIR only | 121 | 0.831 | 0.906 |
+| drone hyperspectral + SWIR | 163 | 0.839 | 0.958 |
+| multispectral, 5 bands | 5 | 0.817 | 0.694 |
+| multispectral + 1610 nm | 6 | **0.839** | 0.684 |
+| multispectral + 531/570 pair | 7 | 0.828 | **0.803** |
+| multispectral + both | 8 | 0.845 | 0.789 |
+| RGB | 3 | 0.802 | 0.725 |
+
+Two things here were not what I expected.
+
+**Drought is the robust one.** Cutting the range at 1000 nm — losing both
+strong water absorptions — costs drought detection only 0.05 AUC, because
+water content also changes the broad shape of the near-infrared plateau, and
+five broad bands capture that. Heat loses more (0.076), and a five-band camera
+loses 0.29.
+
+**Heat is fragile because PRI needs narrow bands.** The photochemical
+reflectance index compares 531 nm with 570 nm, 39 nm apart. A multispectral
+camera's green band is 27 nm wide and centred at 560 nm: it cannot form PRI at
+all. Adding two 10 nm bands at 531 and 570 recovers 0.11 AUC of heat detection
+and does nothing for drought. Adding one 1610 nm band recovers 0.02 of drought
+and does nothing for heat.
+
+That is the cleanest result in this repository, because it is an intervention
+rather than a correlation: each hardware addition buys back exactly the stress
+its mechanism predicts, and only that one.
+
+**The design rule.** If the mission is irrigation scheduling, five bands plus
+one shortwave band is enough and a hyperspectral head is not worth its weight.
+If the mission is heat or light stress, no multispectral camera will do it —
+you need either narrow bands placed on the xanthophyll feature or a
+hyperspectral sensor.
+
+---
+
+## 3. From a leaf probe to a camera
+
+![leaf to canopy](figures/04_leaf_to_canopy.png)
+
+A contact probe fills its field of view with one flat leaf under its own lamp.
+A camera above the row sees that leaf at whatever angle it grew, plus the
+leaves beneath it, plus shadow, plus soil. The Cucurbita experiment measured
+both on the same plots on the same days, so the step can be measured.
+
+Drought against control, split by plot, 95% bootstrap intervals:
+
+| | full spectrum | indices |
+|---|---|---|
+| leaf → leaf | 0.648 [0.59, 0.70] | 0.627 [0.57, 0.69] |
+| canopy → canopy | 0.747 [0.61, 0.86] | 0.817 [0.70, 0.92] |
+| **leaf → canopy** | **0.521 [0.36, 0.67]** | **0.817 [0.71, 0.91]** |
+| leaf → canopy, standardised | 0.365 [0.23, 0.51] | 0.811 [0.70, 0.91] |
+
+Three things follow.
+
+**The canopy carries more drought signal than the leaf**, not less — drought
+changes leaf angle, wilting and exposed soil, and all of that is in a canopy
+view and none of it is in a contact measurement. The field leaf-level number
+(0.65) is also far below the growth-chamber number in §1 (0.88), which is the
+usual gap between a controlled experiment and a field.
+
+**A full-spectrum model does not survive the scale change**, landing at chance,
+while an index model transfers at the same accuracy it achieves when trained
+on canopy data directly. The indices were defined by mechanism before any
+fitting; the full-spectrum model fitted whatever separated the leaf classes,
+including things that exist only in a contact measurement.
+
+**The obvious fix makes it worse.** Standardising each measurement mode to its
+own mean and variance — the cheapest domain adaptation there is — drops the
+full-spectrum transfer from 0.52 to 0.37, i.e. reliably backwards. Scaling
+does not align two distributions that differ in shape, and a mis-specified
+correction is worse than none.
+
+The confuser stays hard: separating drought from a sink manipulation (fruit
+removal — stressed but not thirsty) and control reaches 0.52 at leaf scale and
+0.50 at canopy, against 0.33 for chance.
+
+---
+
+## 4. Seven crops, and a label that was not what it said
+
+![what the spectrum sees](figures/05_what_the_spectrum_sees.png)
+
+Leave-one-species-out drought detection across pumpkin, pepper, poplar,
+radish, sunflower, sorghum and millet: **AUC 0.567** pooled, 0.48 to 0.68 per
+species, and no better within a species than across them. Detection does not
+improve with time into the treatment either — 0.55 on day 0, 0.61 at days
+8–14, 0.55 at days 15–21.
+
+A team with only the label and the spectra would conclude the model needs more
+data, or a deeper architecture. The physiology says otherwise:
+
+| what the treatment did | droughted | watered | Cohen's d |
+|---|---|---|---|
+| leaf relative water content | 79.1% | 79.9% | **−0.09** |
+| stomatal conductance | 0.188 | 0.294 | −0.61 |
+| abscisic acid | 1614 | 339 | +0.36 |
+| proline | 2.72 | 1.87 | +0.25 |
+
+The plants were genuinely droughted: they shut their stomata, flooded
+themselves with ABA and accumulated proline. And they **held their leaf water
+content constant** — textbook isohydric regulation, trading gas exchange to
+protect hydration.
+
+Reflectance in this range measures water content and pigments. The one thing
+the treatment did not change is the one thing the instrument measures. Asked
+to predict the physiological states directly, from median splits taken within
+species so the crop cannot be guessed, the spectrum manages AUC 0.56 for water
+content, 0.58 for stomatal conductance and 0.57 for ABA — while simply knowing
+the treatment label predicts conductance at 0.71. The spectrum adds nothing.
+
+One detail rescues the method's honour: the index model's score correlates
+with measured water content at r = +0.25 while the treatment label correlates
+with it at −0.05. The spectral model is reading the plant. The label is not.
+
+**The rule this gives the framework:** before training on a treatment label,
+check what the treatment did to the quantity your instrument measures. If the
+label moved and that quantity did not, no model will close the gap, and the
+honest deliverable is a specification change — a thermal camera for stomatal
+closure, or fluorescence for photosystem state — not a bigger network.
+
+---
+
+## Verification
+
+Seven checks, all passing:
+
+- the quality gate rejects reflectance above 1 and detector-splice steps, and
+  every spectrum it keeps has a near-infrared plateau at least three times the
+  red trough
+- every instrument in the cascade returns a flat spectrum unchanged, so the
+  sensor comparison measures the sensor and not the band weighting
+- the red edge position lands inside the red edge, with a median at 700–730 nm
+- SNV output has zero mean and unit deviation per spectrum
+- **the mechanism claim is pinned**: NDWI and the 1450 nm band separate the
+  watering treatments (|d| > 0.5) and not the temperatures (|d| < 0.15); PRI
+  does the reverse by a factor of three
+- **the isohydric finding is pinned**: in the crops experiment the treatment
+  must leave water content within 2 points, cut conductance by at least a
+  quarter, and triple ABA
+
+---
+
+## What this does not show
+
+- **No field imagery.** The canopy spectra in §3 are spectroradiometer
+  measurements from above the plot, not drone images. Registration, mixed
+  pixels, view-angle effects, atmospheric correction and flight-line
+  radiometric matching are all real problems this framework does not touch.
+- **Three experiments, not a survey.** The heat result rests on one species in
+  one growth-chamber study at two temperatures, and the block split is the
+  strongest available control, not a perfect one: an instrument difference
+  shared by both hot rooms would still pass it.
+- **The sensor cascade is a simulation** of band response and noise applied to
+  measured spectra. It captures range, resolution and noise; it does not
+  capture the optics, the calibration chain or the flight.
+- **Small canopy sample.** 86 canopy spectra survive quality control, hence
+  the wide bootstrap intervals in §3.
+- **Heat means 30 °C here**, a mild elevation. Severe heat that causes actual
+  dehydration would look different, and probably easier.
+- **The isohydric result is about these species under this treatment.** An
+  anisohydric crop that lets its water potential fall would be visible to the
+  same instrument.
+
+---
+
+## Source code
+
+**The source code for this project is not public.** This page documents the
+data, the method, the measurements and the conclusions; the implementation is
+held in a private repository and is available under NDA.
+
+What is described here: the quality gate, the index library grouped by
+mechanism, the instrument simulator, the split schemes, the transfer
+protocols, and the physiological validation of the labels.
+
+---
+
+## Licence and credit
+
+Documentation and figures: CC BY 4.0.
+
+The three datasets belong to their authors and are distributed through the
+Ecological Spectral Information System (EcoSIS). Cite them, not this page:
+
+- John Couture. 2015. *Common Milkweed Leaf Responses to Water Stress and
+  Elevated Temperature.* Data set, EcoSIS.
+- Angela C. Burnett, Shawn P. Serbin, Alistair Rogers. 2020. *Leaf and canopy
+  spectroscopy and biochemical data of field-grown Cucurbita pepo under two
+  stresses.* Data set, EcoSIS.
+- Angela C. Burnett, Shawn P. Serbin, Kenneth J. Davidson, Kim S. Ely,
+  Alistair Rogers. 2020. *Hyperspectral leaf reflectance, biochemistry, and
+  physiology of droughted and watered crops.* Data set, EcoSIS.
