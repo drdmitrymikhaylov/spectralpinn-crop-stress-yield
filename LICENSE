@@ -1,0 +1,24 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Copyright (c) 2026 Dmitry Mikhaylov
+
+The documentation, figures and result files in this repository are licensed
+under CC BY 4.0.  Full text: https://creativecommons.org/licenses/by/4.0/
+
+The underlying measurements are not part of this repository.  They belong to
+their authors and are distributed through the Ecological Spectral Information
+System (EcoSIS):
+
+  John Couture. 2015. Common Milkweed Leaf Responses to Water Stress and
+  Elevated Temperature. Data set, EcoSIS.
+
+  Angela C. Burnett, Shawn P. Serbin, Alistair Rogers. 2020. Leaf and canopy
+  spectroscopy and biochemical data of field-grown Cucurbita pepo under two
+  stresses. Data set, EcoSIS.
+
+  Angela C. Burnett, Shawn P. Serbin, Kenneth J. Davidson, Kim S. Ely,
+  Alistair Rogers. 2020. Hyperspectral leaf reflectance, biochemistry, and
+  physiology of droughted and watered crops. Data set, EcoSIS.
+
+This licence covers the contents of this repository only.  The source code of
+the analysis is not part of this repository and is not licensed here.
