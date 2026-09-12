@@ -1,24 +1,38 @@
+Documentation, figures and result files: CC BY 4.0
+(https://creativecommons.org/licenses/by/4.0/).
+
+Source code in src/ and tests/: MIT License, Copyright (c) 2026 Dmitry Mikhaylov.
+The spectra are not redistributed; see data/SOURCE.md.
+
+--------------------------------------------------------------------------
 Creative Commons Attribution 4.0 International (CC BY 4.0)
 
 Copyright (c) 2026 Dmitry Mikhaylov
 
 The documentation, figures and result files in this repository are licensed
-under CC BY 4.0.  Full text: https://creativecommons.org/licenses/by/4.0/
+under CC BY 4.0. You are free to share and adapt the material for any purpose,
+provided you give appropriate credit. Full text:
+https://creativecommons.org/licenses/by/4.0/legalcode
 
-The underlying measurements are not part of this repository.  They belong to
-their authors and are distributed through the Ecological Spectral Information
-System (EcoSIS):
+--------------------------------------------------------------------------
+MIT License
 
-  John Couture. 2015. Common Milkweed Leaf Responses to Water Stress and
-  Elevated Temperature. Data set, EcoSIS.
+Copyright (c) 2026 Dmitry Mikhaylov
 
-  Angela C. Burnett, Shawn P. Serbin, Alistair Rogers. 2020. Leaf and canopy
-  spectroscopy and biochemical data of field-grown Cucurbita pepo under two
-  stresses. Data set, EcoSIS.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-  Angela C. Burnett, Shawn P. Serbin, Kenneth J. Davidson, Kim S. Ely,
-  Alistair Rogers. 2020. Hyperspectral leaf reflectance, biochemistry, and
-  physiology of droughted and watered crops. Data set, EcoSIS.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-This licence covers the contents of this repository only.  The source code of
-the analysis is not part of this repository and is not licensed here.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

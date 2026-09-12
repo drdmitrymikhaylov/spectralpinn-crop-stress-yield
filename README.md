@@ -18,7 +18,9 @@ nothing about the three questions a deployment actually turns on.
    promise the plant is short of water — and this repository contains a
    dataset where it wasn't.
 
-Four experiments on three published datasets, each answering one of those.
+Four experiments on three published datasets, each answering one of those —
+and a fifth that replaces the regression with a physical model of the leaf,
+to see whether the chemistry it returns survives a new crop.
 
 ---
 
@@ -53,6 +55,7 @@ they dominate any model that uses absolute amplitude.
 | 5 | Standardising the two measurement modes to their own means makes the full-spectrum transfer **worse**, not better (0.52 → 0.37). The obvious domain correction is the wrong one. | §3 |
 | 6 | Across seven crops, leave-one-species-out drought detection is 0.567 — barely above chance — and does not improve from day 0 to day 28. | §4 |
 | 7 | The reason is in the plants, not the model: the drought treatment cut stomatal conductance by 36% and raised ABA five-fold while leaving leaf water content **unchanged** (79.1% vs 79.9%). Reflectance measures water content. The stress was real, expensive and spectrally invisible. | §4 |
+| 8 | A physics-informed slab model (finite-thickness Kubelka–Munk with learned absorption spectra) recovers the water bands at 1 448 and 1 928 nm from reflectance alone, with no chemistry label — and its per-leaf water content still does not transfer across species (median r −0.13 with RWC). Neither does PLS trained with labels (median R² −0.33). The failure is in the leaves, not the estimator. | §5 |
 
 ---
 
@@ -240,9 +243,82 @@ closure, or fluorescence for photosystem state — not a bigger network.
 
 ---
 
+## 5. Putting the physics in: a slab model fitted to the reflectance
+
+![slab model](figures/06_slab_model.png)
+
+Everything above reads the spectrum with indices or a regression. Neither is a
+model of the leaf. The last experiment asks what changes when the leaf is
+modelled — and whether the chemistry that comes out survives the same
+leave-one-species-out test that broke the regression.
+
+A leaf is a scattering, absorbing layer of finite thickness. Its reflectance
+follows the Kubelka–Munk solution for a slab over a dark backing,
+
+    R(λ) = 1 / (a + b·coth(b·S·d)),   a = 1 + K/S,   b = √(a² − 1),
+    K·d = Σᵢ Cᵢ kᵢ(λ),                 S·d = s·σ(λ),
+
+with three absorbing constituents at contents Cᵢ per unit area, a scattering
+thickness s per leaf, and specific absorption spectra kᵢ(λ) and a scattering
+spectrum σ(λ) that are small networks of wavelength. All of it is learned
+jointly from the 2 344 crop leaf spectra alone; **no measured water content or
+mass per area enters the fit at any point.** The physics-informed part is
+strict: the network can only produce reflectance through that equation, so the
+per-leaf numbers it returns are contents and a thickness, not features.
+
+Two things had to be fixed before the decomposition meant anything, and both
+are recorded because they are the usual failure modes of this kind of model.
+The optically-thick form of Kubelka–Munk (the one behind the familiar
+(1−R)²/2R transform) is blind to thickness by construction, so it cannot
+separate "more water" from "more leaf"; the finite-slab form can. And with
+three unconstrained constituents, two of them learned the water bands and none
+learned dry matter — the decomposition is not identifiable from reflectance
+alone. Each constituent was therefore given a **support window** — pigments
+below 780 nm, water above 880 nm, dry matter above 1 480 nm — and only the
+shapes inside the windows are learned.
+
+**What the fit produces.** The slab reproduces the spectra (root-mean-square
+residual about 0.015 in reflectance), and the learned spectra land where the
+chemistry says they should: the water constituent peaks at 1 448 and 1 928 nm
+with shoulders at 970 and 1 200 nm, the pigment constituent fills the visible
+and switches off at the red edge, and the dry-matter constituent occupies the
+short-wave infrared beyond 1 500 nm. Reflectance alone, with no label,
+recovers the absorption bands of water. That part works.
+
+**What it does not produce is chemistry that transfers.** Within a species the
+water content does correlate with measured relative water content — but the
+sign changes from crop to crop: +0.56 in radish, +0.39 in sorghum, −0.14 in
+pumpkin. Leaving each species out in turn, fitting the endmembers on the other
+six and reading the held-out leaves' water fraction against their measured
+RWC gives r = +0.57 on sunflower, −0.54 on pumpkin, −0.57 on sorghum, and a
+median of **−0.13** over the seven. Dry matter against leaf mass per area:
+median **+0.08**.
+
+The regression baseline does not do better where it counts. A ten-component
+PLS trained with the labels of six species reaches a median correlation of
++0.54 with RWC on the seventh, but its median R² is **−0.33**: it ranks the
+leaves of a new crop better than chance and predicts their values worse than
+the mean. For LMA the picture is the same (r +0.38, R² −1.70).
+
+The physical reading of the negative is the one §4 already gave. Relative
+water content in this experiment varies by 2–5 points within a species — the
+crops were isohydric — and a 2 % change in the water band is inside what the
+leaf's own thickness, surface and internal structure do to the same band.
+The slab model separates water from thickness in principle; on leaves whose
+water barely moved it separates them into species-specific scatter. A model
+can be physically right and still have nothing to read.
+
+**What this adds to the framework:** a decomposition that returns *named*
+quantities with the units of a leaf, so that when it fails the failure is
+legible — here, that the water signal a new species presents is dominated by
+its structure, not its hydration. That is the diagnosis a regression cannot
+give.
+
+---
+
 ## Verification
 
-Seven checks, all passing:
+Ten checks, all passing:
 
 - the quality gate rejects reflectance above 1 and detector-splice steps, and
   every spectrum it keeps has a near-infrared plateau at least three times the
@@ -257,6 +333,14 @@ Seven checks, all passing:
 - **the isohydric finding is pinned**: in the crops experiment the treatment
   must leave water content within 2 points, cut conductance by at least a
   quarter, and triple ABA
+- the slab model reduces to the classical Kubelka–Munk R∞ for an infinitely
+  thick leaf, to zero for a vanishing one, and reflects less when more
+  absorber is added
+- each learned constituent absorbs only inside its support window, so the
+  three cannot swap roles
+- **the slab result is pinned**: the water constituent's strongest band is at
+  1 450 or 1 940 nm, and neither its held-out correlation with RWC (|median r|
+  < 0.4) nor PLS's held-out R² (< 0.3) is allowed to look like a success
 
 ---
 
@@ -285,19 +369,32 @@ Seven checks, all passing:
 
 ## Source code
 
-**The source code for this project is not public.** This page documents the
-data, the method, the measurements and the conclusions; the implementation is
-held in a private repository and is available under NDA.
+The physics core is public in this repository:
 
-What is described here: the quality gate, the index library grouped by
-mechanism, the instrument simulator, the split schemes, the transfer
-protocols, and the physiological validation of the labels.
+- `src/spectra.py` — data loading, the four-part quality gate, the index
+  library grouped by mechanism, SNV
+- `src/sensors.py` — the instrument simulator (band response, range, noise)
+- `src/exp5_km_pinn.py` — the finite-thickness Kubelka–Munk slab model with
+  learned absorption spectra, support windows, within-species and
+  leave-one-species-out evaluation against PLS
+- `tests/test_all.py` — the ten checks above
+
+The experiment scripts for §1–§4 (split schemes, transfer protocols, the
+physiological validation of the labels) are held in a private repository.
+`results/` holds every number on this page as JSON.
+
+```
+pip install -r requirements.txt
+python tests/test_all.py
+python src/exp5_km_pinn.py      # ~25 min on a laptop CPU
+```
 
 ---
 
 ## Licence and credit
 
-Documentation and figures: CC BY 4.0.
+Documentation, figures and result files: CC BY 4.0. Source code in `src/` and
+`tests/`: MIT.
 
 The three datasets belong to their authors and are distributed through the
 Ecological Spectral Information System (EcoSIS). Cite them, not this page:
