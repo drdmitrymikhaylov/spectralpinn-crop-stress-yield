@@ -1,11 +1,22 @@
 cff-version: 1.2.0
 message: "If you use this repository, please cite it as below."
 type: software
-title: "spectralpinn-crop-stress-yield"
+title: "SpectralPINN: Which Crop Stress a Spectrum Can Actually See"
+abstract: "Which crop stress a spectrum can actually see"
 authors:
   - family-names: Mikhaylov
     given-names: Dmitry
     orcid: "https://orcid.org/0009-0009-2108-6820"
+    affiliation: "Abu Dhabi Maritime Academy, AD Ports Group"
 repository-code: "https://github.com/drdmitrymikhaylov/spectralpinn-crop-stress-yield"
+url: "https://github.com/drdmitrymikhaylov/spectralpinn-crop-stress-yield"
 license: "CC-BY-4.0"
-year: 2026
+keywords:
+  - "drought stress"
+  - "hyperspectral"
+  - "plant phenotyping"
+  - "precision agriculture"
+  - "remote sensing"
+  - "spectroscopy"
+  - "uav"
+date-released: "2026-09-09"
