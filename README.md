@@ -24,6 +24,10 @@ whether the chemistry it returns survives a new crop.
 
 ---
 
+## From field to repository
+
+I have built crop analytics from space since 2017, from satellite yield programmes for investors and governments in emerging economies to national digital agriculture platforms designed at a scale of millions of hectares. Along the way came hyperspectral wheat classification, an Adaptive Calibration Cycle for hyperspectral sensors (2025) and plant-stress experiments published in *Agronomy* and *Plants*. This repository takes the central question of all that work, which stress light can actually see, and answers it on open data.
+
 ## Three experiments from EcoSIS
 
 All three are open leaf- and canopy-level spectra with treatment labels and
