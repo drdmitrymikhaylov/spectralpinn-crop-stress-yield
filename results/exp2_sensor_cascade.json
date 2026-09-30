@@ -34,7 +34,7 @@
    "multispectral 5-band": {
     "kind": "bands",
     "snr": 150,
-    "note": "MicaSense RedEdge-P class: blue, green, red, red edge, NIR"
+    "note": "typical five-band drone camera: blue, green, red, red edge, NIR"
    },
    "multispectral + 1610 nm": {
     "kind": "bands",

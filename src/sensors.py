@@ -25,7 +25,7 @@ through each instrument's response.
 
 import numpy as np
 
-# MicaSense RedEdge-P / Altum-class band centres and full widths, nm
+# band centres and full widths of a typical five-band drone camera, nm
 MULTISPECTRAL = [(475, 32), (560, 27), (668, 16), (717, 12), (842, 57)]
 # two candidate hardware additions, each cheap next to a hyperspectral head:
 # one shortwave band for water content, and the narrow pair the photochemical
@@ -72,7 +72,7 @@ SENSORS = {
         note="a second, much more expensive sensor extends the range"),
     "multispectral 5-band": dict(
         kind="bands", bands=MULTISPECTRAL, snr=150,
-        note="MicaSense RedEdge-P class: blue, green, red, red edge, NIR"),
+        note="typical five-band drone camera: blue, green, red, red edge, NIR"),
     "multispectral + 1610 nm": dict(
         kind="bands", bands=MULTISPECTRAL_SWIR, snr=150,
         note="the same camera with one shortwave-infrared band added"),

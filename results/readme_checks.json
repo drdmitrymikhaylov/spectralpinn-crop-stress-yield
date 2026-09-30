@@ -1,0 +1,538 @@
+{
+ "four_class_by_temperature": {
+  "labels": [
+   "ww 23C",
+   "ww 30C",
+   "ws 23C",
+   "ws 30C"
+  ],
+  "row_is": "true class",
+  "n_per_class": [
+   186,
+   198,
+   170,
+   181
+  ],
+  "recall": {
+   "ww 23C": 0.7043010752688172,
+   "ww 30C": 0.4393939393939394,
+   "ws 23C": 0.8588235294117647,
+   "ws 30C": 0.6408839779005525
+  },
+  "water_axis_correct|23C": {
+   "right": 308,
+   "n": 356,
+   "rate": 0.8651685393258427
+  },
+  "water_axis_correct|30C": {
+   "right": 228,
+   "n": 379,
+   "rate": 0.6015831134564644
+  },
+  "heat_axis_correct|well watered": {
+   "right": 333,
+   "n": 384,
+   "rate": 0.8671875
+  },
+  "heat_axis_correct|water stressed": {
+   "right": 333,
+   "n": 351,
+   "rate": 0.9487179487179487
+  },
+  "ww30_called_ws30": {
+   "count": 90,
+   "n": 198,
+   "rate": 0.45454545454545453,
+   "called_correctly": 87
+  },
+  "ws30_called_ww30": {
+   "count": 53,
+   "n": 181,
+   "rate": 0.292817679558011
+  },
+  "ww23_called_ws23": {
+   "count": 25,
+   "n": 186,
+   "rate": 0.13440860215053763
+  },
+  "ws23_called_ww23": {
+   "count": 18,
+   "n": 170,
+   "rate": 0.10588235294117647
+  }
+ },
+ "index_selectivity": {
+  "permutation_p_floor": 0.0004997501249375312,
+  "water_indices": {
+   "NDWI": {
+    "d_water": -0.9150975419655618,
+    "d_heat": -0.02428692923979278,
+    "p_heat": 0.7316341829085458,
+    "heat_to_water_ratio": 0.026540262787315826
+   },
+   "NDII": {
+    "d_water": -0.9259771920419753,
+    "d_heat": -0.4059315277342827,
+    "p_heat": 0.0004997501249375312,
+    "heat_to_water_ratio": 0.43838177789143806
+   },
+   "MSI": {
+    "d_water": 0.9453362431158667,
+    "d_heat": 0.4556200769924545,
+    "p_heat": 0.0004997501249375312,
+    "heat_to_water_ratio": 0.4819661578727926
+   },
+   "WBI": {
+    "d_water": -1.0536929059886848,
+    "d_heat": 0.3014660714539798,
+    "p_heat": 0.0009995002498750624,
+    "heat_to_water_ratio": 0.2861043001624015
+   },
+   "WATER1450": {
+    "d_water": -0.6008802383391392,
+    "d_heat": -0.02274621624436199,
+    "p_heat": 0.7471264367816092,
+    "heat_to_water_ratio": 0.037854824960184386
+   },
+   "WATER1940": {
+    "d_water": 0.6860411628303231,
+    "d_heat": 0.289636011103967,
+    "p_heat": 0.0004997501249375312,
+    "heat_to_water_ratio": 0.42218459590536545
+   }
+  },
+  "n_water_indices": 6,
+  "heat_blind": [
+   "NDWI",
+   "WATER1450"
+  ],
+  "n_heat_blind": 2,
+  "photoprotection": {
+   "PRI": {
+    "d_water": 0.364984876127149,
+    "d_heat": 1.1501171513779311,
+    "heat_to_water_ratio": 3.151136462370203
+   },
+   "CRI700": {
+    "d_water": -0.3322840243070669,
+    "d_heat": -0.8786767986091119,
+    "heat_to_water_ratio": 2.644354631377397
+   },
+   "ARI": {
+    "d_water": -0.7948641053819903,
+    "d_heat": -0.6558136409980393,
+    "heat_to_water_ratio": 0.8250638524969912
+   },
+   "SIPI": {
+    "d_water": -0.26212032711084965,
+    "d_heat": -0.34585376590351546,
+    "heat_to_water_ratio": 1.3194465675958633
+   }
+  }
+ },
+ "species_transfer": {
+  "n_boot": 2000,
+  "resampling": "leaves, stratified by treatment, within species; plants are measured repeatedly, so the intervals are no wider than the truth",
+  "max_abs_refit_difference": 0.0019366197183098288,
+  "species": {
+   "Carolina poplar": {
+    "n": 411,
+    "n_droughted": 207,
+    "n_plants": 16,
+    "across_full": 0.6475798048688074,
+    "across_full_ci95": [
+     0.592402552808563,
+     0.7004860519086862
+    ],
+    "across_indices": 0.6749786871270247,
+    "across_indices_ci95": [
+     0.6191851378232452,
+     0.7264403949985792
+    ],
+    "within_full": 0.6895661646301032,
+    "within_full_ci95": [
+     0.6395010419626788,
+     0.7393056739604054
+    ],
+    "within_minus_across": 0.04198635976129583,
+    "within_minus_across_ci95": [
+     -0.023255896561523205,
+     0.10361134792081085
+    ],
+    "share_of_resamples_within_ahead": 0.8975
+   },
+   "cayenne pepper": {
+    "n": 498,
+    "n_droughted": 249,
+    "n_plants": 24,
+    "across_full": 0.4915727165690876,
+    "across_full_ci95": [
+     0.44039249366945693,
+     0.5418952920114192
+    ],
+    "across_indices": 0.5978129385009919,
+    "across_indices_ci95": [
+     0.5469202109643393,
+     0.6478955984580892
+    ],
+    "within_full": 0.682811567555362,
+    "within_full_ci95": [
+     0.6360683698650021,
+     0.7305571684327672
+    ],
+    "within_minus_across": 0.1912388509862744,
+    "within_minus_across_ci95": [
+     0.12223633489782422,
+     0.26565740875147176
+    ],
+    "share_of_resamples_within_ahead": 1.0
+   },
+   "common sunflower": {
+    "n": 172,
+    "n_droughted": 85,
+    "n_plants": 16,
+    "across_full": 0.5272481406355646,
+    "across_full_ci95": [
+     0.44272481406355646,
+     0.6134381338742391
+    ],
+    "across_indices": 0.5052062204192022,
+    "across_indices_ci95": [
+     0.42217376605814744,
+     0.5889114266396214
+    ],
+    "within_full": 0.4781609195402299,
+    "within_full_ci95": [
+     0.39268762677484786,
+     0.5655206220419202
+    ],
+    "within_minus_across": -0.0490872210953347,
+    "within_minus_across_ci95": [
+     -0.16065584854631507,
+     0.06523326572008087
+    ],
+    "share_of_resamples_within_ahead": 0.2125
+   },
+   "cultivated radish": {
+    "n": 214,
+    "n_droughted": 104,
+    "n_plants": 16,
+    "across_full": 0.6015734265734266,
+    "across_full_ci95": [
+     0.5280550699300699,
+     0.67850743006993
+    ],
+    "across_indices": 0.6506993006993007,
+    "across_indices_ci95": [
+     0.5759331293706293,
+     0.7206381118881118
+    ],
+    "within_full": 0.46923076923076923,
+    "within_full_ci95": [
+     0.39221153846153844,
+     0.5501791958041958
+    ],
+    "within_minus_across": -0.13234265734265738,
+    "within_minus_across_ci95": [
+     -0.2318225524475524,
+     -0.03173076923076923
+    ],
+    "share_of_resamples_within_ahead": 0.0035
+   },
+   "field pumpkin": {
+    "n": 864,
+    "n_droughted": 415,
+    "n_plants": 25,
+    "across_full": 0.6034185740735771,
+    "across_full_ci95": [
+     0.5646778651353744,
+     0.6417292779134355
+    ],
+    "across_indices": 0.5388252341213406,
+    "across_indices_ci95": [
+     0.5016075884831084,
+     0.5784425899589449
+    ],
+    "within_full": 0.6613733329755548,
+    "within_full_ci95": [
+     0.6235166501194086,
+     0.6966603160973515
+    ],
+    "within_minus_across": 0.057954758901977654,
+    "within_minus_across_ci95": [
+     -0.0005368019964043069,
+     0.11227131242117684
+    ],
+    "share_of_resamples_within_ahead": 0.9745
+   },
+   "foxtail millet": {
+    "n": 96,
+    "n_droughted": 48,
+    "n_plants": 16,
+    "across_full": 0.4765625,
+    "across_full_ci95": [
+     0.3602213541666667,
+     0.5976671006944444
+    ],
+    "across_indices": 0.3020833333333333,
+    "across_indices_ci95": [
+     0.20266927083333333,
+     0.4032118055555556
+    ],
+    "within_full": 0.6818576388888888,
+    "within_full_ci95": [
+     0.5737738715277778,
+     0.7921006944444444
+    ],
+    "within_minus_across": 0.20529513888888884,
+    "within_minus_across_ci95": [
+     0.043402777777777735,
+     0.3585177951388889
+    ],
+    "share_of_resamples_within_ahead": 0.9925
+   },
+   "sorghum": {
+    "n": 151,
+    "n_droughted": 71,
+    "n_plants": 16,
+    "across_full": 0.4903169014084507,
+    "across_full_ci95": [
+     0.39840228873239436,
+     0.5853961267605634
+    ],
+    "across_indices": 0.6051056338028169,
+    "across_indices_ci95": [
+     0.5054489436619718,
+     0.6973679577464789
+    ],
+    "within_full": 0.6302816901408451,
+    "within_full_ci95": [
+     0.5346786971830986,
+     0.7151540492957745
+    ],
+    "within_minus_across": 0.13996478873239443,
+    "within_minus_across_ci95": [
+     0.020246478873239493,
+     0.25018485915492955
+    ],
+    "share_of_resamples_within_ahead": 0.9895
+   }
+  },
+  "across_full_range": [
+   0.4765625,
+   0.6475798048688074
+  ],
+  "across_indices_range": [
+   0.3020833333333333,
+   0.6749786871270247
+  ],
+  "within_full_range": [
+   0.46923076923076923,
+   0.6895661646301032
+  ],
+  "mean_across_full": 0.5483245805898448,
+  "mean_within_full": 0.6133260118516791,
+  "n_species_within_ahead": 5,
+  "n_species_within_ahead_ci_excludes_zero": 3,
+  "n_species_within_behind_ci_excludes_zero": 1,
+  "n_species_across_full_ci_excludes_half": 3
+ },
+ "score_vs_rwc": {
+  "full spectrum": {
+   "n": 704,
+   "r_pooled": -0.03170664848729749,
+   "r_within_species": -0.04472854540698004,
+   "r_between_species_means": -0.18040493972813537,
+   "n_species": 6,
+   "per_species": {
+    "Carolina poplar": {
+     "n": 125,
+     "r": -0.16860392686655765,
+     "r_ci95": [
+      -0.3343159621582902,
+      0.007220543344356691
+     ],
+     "mean_rwc": 64.77479569904,
+     "mean_score": 0.3969409095965168
+    },
+    "cayenne pepper": {
+     "n": 96,
+     "r": -0.004991558240836092,
+     "r_ci95": [
+      -0.20527565658443284,
+      0.1956938123681232
+     ],
+     "mean_rwc": 86.49840723125,
+     "mean_score": 0.41552014128901177
+    },
+    "common sunflower": {
+     "n": 61,
+     "r": -0.4547156484002243,
+     "r_ci95": [
+      -0.6339481467319503,
+      -0.22912761917703567
+     ],
+     "mean_rwc": 79.83637277786883,
+     "mean_score": 0.947915715174082
+    },
+    "cultivated radish": {
+     "n": 48,
+     "r": -0.5591592409785723,
+     "r_ci95": [
+      -0.7276848185823287,
+      -0.3269680654068848
+     ],
+     "mean_rwc": 90.30763676104168,
+     "mean_score": 0.21488170098581513
+    },
+    "field pumpkin": {
+     "n": 312,
+     "r": 0.01588205232522282,
+     "r_ci95": [
+      -0.0953267807406814,
+      0.1266993302415789
+     ],
+     "mean_rwc": 81.02614609480769,
+     "mean_score": 0.44487772902047623
+    },
+    "sorghum": {
+     "n": 62,
+     "r": -0.18368395040707472,
+     "r_ci95": [
+      -0.4144422626235563,
+      0.0692665434195778
+     ],
+     "mean_rwc": 82.00382471096773,
+     "mean_score": 0.5364353688903305
+    }
+   },
+   "median_per_species_r": -0.17614393863681618,
+   "n_species_positive": 1
+  },
+  "indices": {
+   "n": 704,
+   "r_pooled": 0.25262412759858754,
+   "r_within_species": -0.09416461854936967,
+   "r_between_species_means": 0.2353803025174592,
+   "n_species": 6,
+   "per_species": {
+    "Carolina poplar": {
+     "n": 125,
+     "r": -0.02483609332482658,
+     "r_ci95": [
+      -0.19957632420272872,
+      0.15143506785274555
+     ],
+     "mean_rwc": 64.77479569904,
+     "mean_score": 0.25707018987631314
+    },
+    "cayenne pepper": {
+     "n": 96,
+     "r": -0.49161036908242733,
+     "r_ci95": [
+      -0.6300048948901602,
+      -0.3229518572094621
+     ],
+     "mean_rwc": 86.49840723125,
+     "mean_score": 0.4601737712715172
+    },
+    "common sunflower": {
+     "n": 61,
+     "r": -0.5460426968276921,
+     "r_ci95": [
+      -0.7014178012175326,
+      -0.3411246571691855
+     ],
+     "mean_rwc": 79.83637277786883,
+     "mean_score": 0.7307912565541843
+    },
+    "cultivated radish": {
+     "n": 48,
+     "r": -0.5588205695114797,
+     "r_ci95": [
+      -0.7274529836743762,
+      -0.32652806522711114
+     ],
+     "mean_rwc": 90.30763676104168,
+     "mean_score": 0.3171879702067381
+    },
+    "field pumpkin": {
+     "n": 312,
+     "r": -0.018604966195974616,
+     "r_ci95": [
+      -0.1293784013066653,
+      0.09262711206400455
+     ],
+     "mean_rwc": 81.02614609480769,
+     "mean_score": 0.5405506151389573
+    },
+    "sorghum": {
+     "n": 62,
+     "r": -0.2309947919025522,
+     "r_ci95": [
+      -0.45454205541746373,
+      0.019927550427834968
+     ],
+     "mean_rwc": 82.00382471096773,
+     "mean_score": 0.6223493609929791
+    }
+   },
+   "median_per_species_r": -0.36130258049248976,
+   "n_species_positive": 0
+  }
+ },
+ "sensor_gains": {
+  "n_noise_draws": 5,
+  "sd_is": "sd (ddof=0, as stored) of the five noise draws of each instrument, combined in quadrature; the block split is the same in all",
+  "multispectral + 1610 nm|water stress": {
+   "gain": 0.022523444919278157,
+   "sd_of_difference": 0.00708055149648902,
+   "in_sd": 3.1810297447093903
+  },
+  "multispectral + 1610 nm|heat": {
+   "gain": -0.010777919421303905,
+   "sd_of_difference": 0.010284053740732144,
+   "in_sd": -1.0480224717822801
+  },
+  "multispectral + PRI pair|water stress": {
+   "gain": 0.011186787749287719,
+   "sd_of_difference": 0.008171685083742296,
+   "in_sd": 1.3689695129764632
+  },
+  "multispectral + PRI pair|heat": {
+   "gain": 0.10864486673979423,
+   "sd_of_difference": 0.0101981024778065,
+   "in_sd": 10.653439399754154
+  },
+  "PRI pair, then + 1610 nm|heat": {
+   "gain": -0.014108683406955147,
+   "sd_of_difference": 0.01315912175139754,
+   "in_sd": -1.0721599566822733
+  },
+  "1610 nm, then + PRI pair|water stress": {
+   "gain": 0.0059947768281102265,
+   "sd_of_difference": 0.004450293621306537,
+   "in_sd": 1.347051978640064
+  },
+  "1610 nm minus PRI pair|water stress": {
+   "gain": 0.011336657169990438,
+   "sd_of_difference": 0.006409435771813383,
+   "in_sd": 1.7687449525347263
+  },
+  "RGB minus 5-band|heat": {
+   "gain": 0.03017847084284475,
+   "sd_of_difference": 0.010145018800520397,
+   "in_sd": 2.9747082224526507
+  },
+  "RGB minus 5-band|water stress": {
+   "gain": -0.015169456315289764,
+   "sd_of_difference": 0.006821461472277733,
+   "in_sd": -2.2237839174109677
+  },
+  "VNIR hyperspectral minus 5-band|water stress": {
+   "gain": 0.014442367046533677,
+   "sd_of_difference": 0.014298811398899816,
+   "in_sd": 1.0100396909665448
+  }
+ }
+}
