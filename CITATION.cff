@@ -2,6 +2,7 @@ cff-version: 1.2.0
 message: "If you use this repository, please cite it as below."
 type: software
 title: "SpectralPINN: Which Crop Stress a Spectrum Can Actually See"
+doi: "10.5281/zenodo.23529571"
 abstract: "Which crop stress a spectrum can actually see"
 authors:
   - family-names: Mikhaylov
