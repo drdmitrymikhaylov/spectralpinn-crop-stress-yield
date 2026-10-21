@@ -1,5 +1,7 @@
 # Which crop stress a spectrum can actually see
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23529571.svg)](https://doi.org/10.5281/zenodo.23529571)
+
 A framework for training and validating hyperspectral stress detectors,
 built around the two steps that decide whether one works in the field: telling
 heat from drought, and getting from a hand-held spectrometer to a camera on a
